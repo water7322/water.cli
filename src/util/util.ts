@@ -2,7 +2,7 @@ import sizeOf from 'image-size';
 import fs from 'fs-extra';
 import tinify from 'tinify';
 import keys from '../config/tinypng';
-import { ISizeCalculationResult } from '../../node_modules/image-size/dist/types/interface';
+import {ISizeCalculationResult} from '../../node_modules/image-size/dist/types/interface';
 
 export default {
     getInfo(sPath = '') {
@@ -10,7 +10,6 @@ export default {
         const bFile = !!oState?.isFile();
         const oInfo = (bFile && sizeOf(sPath)) as ISizeCalculationResult;
         const aPath = sPath.split('/');
-        console.log(oInfo);
         return {
             isFile: bFile,
             isDir: !!oState?.isDirectory(),

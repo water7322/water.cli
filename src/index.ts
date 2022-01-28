@@ -65,7 +65,6 @@ cmdPaths.forEach((path: string) => {
 
         const data: {[key: string]: any} = {};
         arg.forEach((item, nIndex) => (data[item.name] = args[nIndex]));
-        console.log(data, args)
         if (!cmdData.action) return;
         cmdData.action(data, args[arg.length], cmd.opts()).catch((e: any) => {
             throw e;
