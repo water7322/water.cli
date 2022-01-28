@@ -1,0 +1,5 @@
+/app/release/
+/node_modules/
+/miniprogram_npm/
+/*.js
+/app/src/kit/
