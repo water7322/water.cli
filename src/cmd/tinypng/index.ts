@@ -1,6 +1,7 @@
 import path from 'path';
 import Util from '../../util/util';
-module.exports = {
+
+export default {
     desc: '压缩图片，只支持jpg和png类型',
     arguments: [
         {

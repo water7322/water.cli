@@ -48,7 +48,7 @@ cmdPaths.forEach((path: string) => {
     // 命令 name
     const cmd = program.command(`${name} ${arg.map(item => getArgsName(item)).join(' ')}`);
     cmdData.desc && cmd.description(cmdData.desc);
-    cmdData.options.forEach(item => cmd.option(item.name, item.desc, item.default));
+    cmdData.options?.forEach(item => cmd.option(item.name, item.desc, item.default));
 
     cmd.action((...args: any[]) => {
         // 获取最新的版本号
