@@ -1,6 +1,6 @@
 {
     "editor.formatOnSave": false,
-    "html.format.wrapLineLength": 100000000,
+    "html.format.wrapLineLength": 120,
     "eslint.validate": ["javascript", "javascriptreact", "vue"],
     "vetur.format.defaultFormatter.html": "prettyhtml",
     "vetur.format.defaultFormatter.css": "prettier",
