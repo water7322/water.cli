@@ -2,7 +2,7 @@
 import {Command} from 'commander';
 import glob from 'glob';
 import path from 'path';
-const execSync = require('child_process').execSync;
+import {execSync} from 'child_process';
 
 const pathCmd = path.resolve(__dirname, './cmd');
 const cmdPaths = glob.sync(`${pathCmd}/**/index.{js,ts}`);
@@ -58,7 +58,10 @@ cmdPaths.forEach((path: string) => {
                 const result = execSync(`npm view ${info.name} version`);
                 const versionNow = result.toString().trim();
 
-                if (versionNow !== version) console.log(`\n发现新版本${versionNow}(当前版本${version})，请执行下面语句更新\nsudo npm i @ncfe/ncli -g\n`);
+                if (versionNow !== version)
+                    console.log(
+                        `\n发现新版本${versionNow}(当前版本${version})，请执行下面语句更新\nsudo npm i @ncfe/ncli -g\n`
+                    );
                 timeQuery = timeNow;
             } catch (e) {}
         }
