@@ -19,7 +19,9 @@ export default {
         const sPath: string = path.resolve(oData.path);
         const oInfo = Util.getInfo(sPath);
         try {
-            const sToFile = oParam.replace ? sPath : `${oInfo.path}/${Util.getNewName(oInfo.fileName, (sName: string) => `${sName}_tiny`)}`;
+            const sToFile = oParam.replace
+                ? sPath
+                : `${oInfo.path}/${Util.getNewName(oInfo.fileName, (sName: string) => `${sName}_tiny`)}`;
             await Util.tinify({
                 fromFile: sPath,
                 toFile: sToFile

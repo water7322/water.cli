@@ -19,7 +19,7 @@ export default {
         try {
             const loading = ora(`升级lintstaged...`);
             loading.start();
-    
+
             const path = process.cwd();
             // 更新包
             await PackManager.update('lint-staged', false, '-D');
@@ -27,7 +27,7 @@ export default {
             fs.copySync(`${__dirname}/.lintstagedrc`, `${path}/.lintstagedrc`, {overwrite: true});
             // 集成于husky
             await execPromise(`npx husky add .husky/pre-commit "cd ${path} && npx lint-staged"`, path);
-    
+
             loading.color = 'green';
             loading.succeed(`lintstaged升级完成`);
         } catch (error) {

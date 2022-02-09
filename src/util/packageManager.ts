@@ -35,7 +35,7 @@ async function get(name: string) {
  */
 async function update(name: string, minVersion: string | boolean, flag: string) {
     try {
-        const [version, _flag] = await get(name) as string[];
+        const [version, _flag] = (await get(name)) as string[];
         if (!version) {
             return install(name + '@latest', flag);
         }

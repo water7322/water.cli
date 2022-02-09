@@ -8,4 +8,3 @@ export function execPromise(cmd: string, cwd: string, ...options: any[]) {
         });
     });
 }
-

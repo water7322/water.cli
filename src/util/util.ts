@@ -42,9 +42,12 @@ export default {
     async tinify(oParam: any) {
         const oInfo1 = this.getInfo(oParam.fromFile);
         if (!oInfo1.isImage) throw new Error('该路径不是图片');
-        if (!['png', 'jpg', 'jpge'].includes(oInfo1.image.type?.toLowerCase?.())) throw new Error('只能压缩png/jpg/jpge文件');
+        if (!['png', 'jpg', 'jpge'].includes(oInfo1.image.type?.toLowerCase?.()))
+            throw new Error('只能压缩png/jpg/jpge文件');
         tinify.key = keys[Math.floor(Math.random() * keys.length)];
-        console.log(`图片信息：width: ${oInfo1.image.width}, height: ${oInfo1.image.height}, type: ${oInfo1.image.type}`);
+        console.log(
+            `图片信息：width: ${oInfo1.image.width}, height: ${oInfo1.image.height}, type: ${oInfo1.image.type}`
+        );
         console.log('正在验证Api key...');
         let oErr = await this.c2p(tinify.validate, tinify)().catch(e => e);
         if (oErr) throw new Error('验证出错，请检查Api key 是否过期');
@@ -55,11 +58,18 @@ export default {
         if (oErr) throw new Error('出现错误，请重试');
         const oInfo2 = this.getInfo(oParam.toFile);
         if (!oInfo2) throw new Error('压缩失败，请重试');
-        console.log(`压缩前:${this.byte2Size(oInfo1.size)}, 压缩后:${this.byte2Size(oInfo2.size)}, 压缩比:${+((oInfo2.size * 100) / oInfo1.size).toFixed(2)}%`);
+        console.log(
+            `压缩前:${this.byte2Size(oInfo1.size)}, 压缩后:${this.byte2Size(oInfo2.size)}, 压缩比:${+(
+                (oInfo2.size * 100) /
+                oInfo1.size
+            ).toFixed(2)}%`
+        );
     },
     c2p(cb: Function, ctx: any) {
         return (...args: any[]) => {
-            return new Promise<void>((resolve, reject) => cb.call(ctx, ...args, (e: any) => (e ? reject(e) : resolve())));
+            return new Promise<void>((resolve, reject) =>
+                cb.call(ctx, ...args, (e: any) => (e ? reject(e) : resolve()))
+            );
         };
     },
     // nCount表示小数保留几位，默认2位小数
