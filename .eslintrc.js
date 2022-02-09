@@ -27,7 +27,7 @@ module.exports = {
         'vue/require-v-for-key': 'off',
         'vue/no-unused-vars': 'off',
         'vue/no-parsing-error': 'off',
-        'vue/max-attributes-per-line': ['error', {singleline: Infinity, multiline: {max: Infinity, allowFirstLine: true}}],
+        'vue/max-attributes-per-line': ['error', {singleline: Infinity, multiline: 1}],
         'no-unused-vars': ['error', {varsIgnorePattern: '^that$', args: 'none'}],
         'comma-dangle': ['error', 'never'],
         'no-regex-spaces': 'off',

@@ -50,13 +50,5 @@
         "image-size": "^1.0.0",
         "shelljs": "^0.8.5",
         "tinify": "^1.6.1"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged"
-        }
-    },
-    "lint-staged": {
-        "./**/*.{js,vue,ts,tsx}": "eslint"
     }
 }

@@ -10,7 +10,6 @@ import Husky from '../husky';
 import Lintstaged from '../lintstaged/index';
 import buildCzTpl from './czTpl';
 
-const dirname = __dirname;
 export default {
     desc: '给项目添加cz',
     arguments: [
@@ -36,7 +35,7 @@ export default {
             console.log(chalk.green('3. 生成配置文件'));
             fs.outputFileSync(`${path}/.czrc`, buildCzTpl(path), {flag: 'w+'});
             fs.copySync(`${__dirname}/.cz-config.js`, `${path}/.cz-config.js`, {overwrite: true});
-            fs.copySync(`${__dirname}/commintlintTpl.js`, `${path}/commintlintTpl.js`, {overwrite: true});
+            fs.copySync(`${__dirname}/commintlintTpl.js`, `${path}/commitlint.config.js`, {overwrite: true});
             // 集成于husky
             console.log(chalk.green('4. 集成于husky'));
             await execPromise(
