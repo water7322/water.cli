@@ -20,8 +20,8 @@ exports.default = {
             const loading = (0, ora_1.default)(`升级husky...`);
             loading.start();
             const path = process.cwd();
-            // 安装/升级 husky v5
-            await packageManager_1.default.update('husky', '5.0.0', '-D');
+            // 安装/升级 husky v7
+            await packageManager_1.default.update('husky', '7.0.4', '-D');
             // 初始化
             await (0, exec_1.execPromise)(`npm set-script prepare "cd ${path} && npx husky install ${path}/.husky"`, path);
             await (0, exec_1.execPromise)(`npm run prepare`, path);

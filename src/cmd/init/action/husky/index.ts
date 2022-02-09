@@ -19,8 +19,8 @@ export default {
             loading.start();
     
             const path = process.cwd();
-            // 安装/升级 husky v5
-            await PackManager.update('husky', '5.0.0', '-D');
+            // 安装/升级 husky v7
+            await PackManager.update('husky', '7.0.4', '-D');
             // 初始化
             await execPromise(`npm set-script prepare "cd ${path} && npx husky install ${path}/.husky"`, path);
             await execPromise(`npm run prepare`, path);
