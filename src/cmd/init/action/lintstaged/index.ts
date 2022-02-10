@@ -1,20 +1,13 @@
 import chalk from 'chalk';
 import ora from 'ora';
 // 本项目资源
-import {execPromise} from '../../../../util/exec';
 import PackManager from '../../../../util/packageManager';
 import fs from 'fs-extra';
+import shell from 'shelljs';
 // 当前模块资源
 
 export default {
     desc: '增加linstaged',
-    arguments: [
-        {
-            name: 'path',
-            required: true
-        }
-    ],
-    options: [],
     async action(oData: any, oParam = {}) {
         try {
             const loading = ora(`升级lintstaged...`);
@@ -26,7 +19,7 @@ export default {
             // 生成配置文件
             fs.copySync(`${__dirname}/.lintstagedrc`, `${path}/.lintstagedrc`, {overwrite: true});
             // 集成于husky
-            await execPromise(`npx husky add .husky/pre-commit "cd ${path} && npx lint-staged"`, path);
+            shell.exec(`npx husky add .husky/pre-commit "cd ${path} && npx lint-staged"`);
 
             loading.color = 'green';
             loading.succeed(`lintstaged升级完成`);

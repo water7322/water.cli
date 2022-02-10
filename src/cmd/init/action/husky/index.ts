@@ -2,17 +2,10 @@ import chalk from 'chalk';
 import ora from 'ora';
 // 本项目资源
 import PackManager from '../../../../util/packageManager';
-import {execPromise} from '../../../../util/exec';
+import shell from 'shelljs';
 
 export default {
     desc: 'husky',
-    arguments: [
-        {
-            name: 'path',
-            required: true
-        }
-    ],
-    options: [],
     async action(oData: object, oParam = {}) {
         try {
             const loading = ora(`升级husky...`);
@@ -22,8 +15,8 @@ export default {
             // 安装/升级 husky v7
             await PackManager.update('husky', '7.0.4', '-D');
             // 初始化
-            await execPromise(`npm set-script prepare "cd ${path} && npx husky install ${path}/.husky"`, path);
-            await execPromise(`npm run prepare`, path);
+            shell.exec(`npm set-script prepare "cd ${path} && npx husky install ${path}/.husky"`);
+            shell.exec(`npm run prepare`);
 
             loading.color = 'green';
             loading.succeed(`husky升级完成`);

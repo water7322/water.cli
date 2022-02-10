@@ -1,6 +1,6 @@
-import {execPromise} from './exec';
 import chalk from 'chalk';
 import fs from 'fs-extra';
+import shell from 'shelljs';
 
 /**
  * 获取版本号和-S/-D
@@ -37,12 +37,13 @@ async function update(name: string, minVersion: string | boolean, flag: string) 
     try {
         const [version, _flag] = (await get(name)) as string[];
         if (!version) {
-            return install(name + '@latest', flag);
+            const dep = name + '@latest';
+            shell.exec(`npm i ${dep} ${flag}`);
         }
         if (flag !== '-g' && minVersion && isBigVersion(version, minVersion as string)) {
             return;
         }
-        return reInstall(name, flag || _flag, true);
+        reInstall(name, flag || _flag, true);
     } catch (error) {
         console.log(chalk.red(`update: ${name}失败`, error));
     }
@@ -54,24 +55,13 @@ async function update(name: string, minVersion: string | boolean, flag: string) 
  * @param {*} flag -S -D -g
  * @return {promise}
  */
-function install(dep: string, flag: string) {
-    return execPromise(`npm i ${dep} ${flag}`, process.cwd()).catch((error: any) => {
-        console.log(chalk.red(`${dep}安装失败`, error));
-        Promise.reject(error);
-    });
-}
-function uninstall(name: string, flag: string) {
-    return execPromise(`npm uninstall ${name} ${flag}`, process.cwd()).catch((error: any) => {
-        console.log(chalk.red('husky卸载失败'));
-        Promise.reject(error);
-    });
-}
 async function reInstall(name: string, flag: string, isLatest = false) {
     try {
         // 尝试卸载
-        await uninstall(name, flag);
+        shell.exec(`npm uninstall ${name} ${flag}`);
         // 安装最新版本
-        return install(name + (isLatest ? '@latest' : ''), flag);
+        const dep = name + (isLatest ? '@latest' : '');
+        shell.exec(`npm i ${dep} ${flag}`);
     } catch (error) {
         console.log(chalk.red(`reInstall: ${name}重装失败`, error));
     }
@@ -100,7 +90,6 @@ function isBigVersion(v1: string, v2: string) {
 export default {
     get,
     update,
-    install,
     reInstall,
     isBigVersion
 };

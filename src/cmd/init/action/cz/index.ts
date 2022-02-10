@@ -1,10 +1,9 @@
 import chalk from 'chalk';
-// const ora = require('ora');
 // 本项目资源
 import PackManager from '../../../../util/packageManager';
-import {execPromise} from '../../../../util/exec';
 import Inquirer from '/Users/water768/water/water.inquirer';
 import fs from 'fs-extra';
+import shell from 'shelljs';
 // 当前模块资源
 import Husky from '../husky';
 import Lintstaged from '../lintstaged/index';
@@ -12,13 +11,6 @@ import buildCzTpl from './czTpl';
 
 export default {
     desc: '给项目添加cz',
-    arguments: [
-        {
-            name: 'path',
-            required: true
-        }
-    ],
-    options: [],
     async action(oData: any, oParam = {}) {
         try {
             const path = process.cwd();
@@ -38,26 +30,18 @@ export default {
             fs.copySync(`${__dirname}/commintlintTpl.js`, `${path}/commitlint.config.js`, {overwrite: true});
             // 集成于husky
             console.log(chalk.green('4. 集成于husky'));
-            await execPromise(
-                `npx husky add .husky/prepare-commit-msg 'cd ${path} && exec < /dev/tty && node_modules/.bin/cz --hook || true'`,
-                path
+            shell.exec(
+                `npx husky add .husky/prepare-commit-msg 'cd ${path} && exec < /dev/tty && node_modules/.bin/cz --hook || true'`
             );
-            await execPromise(
-                `npx husky add .husky/commit-msg 'cd ${path} && npx --no-install commitlint  --edit "$1"'`,
-                path
-            );
+            shell.exec(`npx husky add .husky/commit-msg 'cd ${path} && npx --no-install commitlint  --edit "$1"'`);
             // 升级lintstaged
             console.log(chalk.green('5. 安装/升级lintstaged'));
-            await reInstallLintStaged(path);
+            // await reInstallLintStaged(path);
+            const res = await Inquirer.confirm('重新安装lintstaged');
+            if (res) await Lintstaged.action({path});
             console.log(chalk.green('6. done, 请手动删除package.json中多余的husky lintstaged配置'));
         } catch (error) {
             console.log(chalk.red('cz安装失败', error));
         }
     }
 };
-
-async function reInstallLintStaged(path: string) {
-    const res = await Inquirer.confirm('重新安装lintstaged');
-    if (!res) return;
-    await Lintstaged.action({path});
-}
