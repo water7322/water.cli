@@ -8,14 +8,14 @@ import shell from 'shelljs';
 
 export default {
     desc: '增加linstaged',
-    async action(oData: any, oParam = {}) {
+    async action(path: string) {
         try {
             const loading = ora(`升级lintstaged...`);
             loading.start();
 
-            const path = process.cwd();
+            shell.cd(path);
             // 更新包
-            await PackManager.update('lint-staged', false, '-D');
+            PackManager.update('lint-staged', false, '-D');
             // 生成配置文件
             fs.copySync(`${__dirname}/.lintstagedrc`, `${path}/.lintstagedrc`, {overwrite: true});
             // 集成于husky

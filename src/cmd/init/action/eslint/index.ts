@@ -25,10 +25,8 @@ export default {
         fs.removeSync(path);
 
         fs.writeJSONSync(sPathPackage, oPackage, {spaces: 4});
-        shell.cd(dir);
         shell.exec('yarn install');
         if (!fs.existsSync(`${dir}/.git`)) {
-            shell.cd(dir);
             shell.exec('git init', {silent: true});
         }
         if (fs.existsSync(`${dir}/.git`)) {

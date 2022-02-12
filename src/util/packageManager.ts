@@ -8,7 +8,7 @@ import shell from 'shelljs';
  * @returns
  */
 
-async function get(name: string) {
+function get(name: string) {
     try {
         const rootPath = process.cwd();
         const sPathPackage = `${rootPath}/package.json`;
@@ -33,9 +33,9 @@ async function get(name: string) {
  * @param {*} [flag]
  * @returns
  */
-async function update(name: string, minVersion: string | boolean, flag: string) {
+function update(name: string, minVersion: string | boolean, flag: string) {
     try {
-        const [version, _flag] = (await get(name)) as string[];
+        const [version, _flag] = get(name) as string[];
         if (!version) {
             const dep = name + '@latest';
             shell.exec(`npm i ${dep} ${flag}`);
@@ -55,7 +55,7 @@ async function update(name: string, minVersion: string | boolean, flag: string) 
  * @param {*} flag -S -D -g
  * @return {promise}
  */
-async function reInstall(name: string, flag: string, isLatest = false) {
+function reInstall(name: string, flag: string, isLatest = false) {
     try {
         // 尝试卸载
         shell.exec(`npm uninstall ${name} ${flag}`);
