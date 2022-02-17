@@ -1,5 +1,5 @@
 export default [
-    'PCpVDrJ01ZjV4JtZmVRFMghZ8rf19r0w',
-    'mttmwmj8Hn4xsgqTrcJSN7DP1BFB0NYZ',
-    'ZQgxFWL2Vw6NpTFCJNz32LtDzj0CspzQ'
+    'wRT2dMRJvhMknvypWTbDN4zcBkS6D6yw',
+    'p8g4G3Pplwxy6m4qsx5q6125qm1GqHNv',
+    'dqPgWSWWPndJZpynFJL5wl8Vswk1TsDP'
 ];
